@@ -24,12 +24,15 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package
+      working-directory: my-java-api
 
     - name: Run Unit Tests
       run: mvn test
+      working-directory: my-java-api
 
     - name: Run Functional Tests
       run: mvn verify
+      working-directory: my-java-api
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -39,6 +42,7 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/my-java-api:latest .
+      working-directory: my-java-api
 
     - name: Push Docker image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/my-java-api:latest
